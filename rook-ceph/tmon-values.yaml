@@ -12,31 +12,31 @@ csi:
      - key: ceph-node
        operator: Exists
        effect: NoSchedule
-  provisionerNodeAffinity: key1=value1,value2; key2=value3
+  provisionerNodeAffinity: "role=ceph-node"
 
   pluginTolerations:
      - key: ceph-node
        operator: Exists
        effect: NoSchedule
-  pluginNodeAffinity: key1=value1,value2; key2=value3
+  pluginNodeAffinity: "role=ceph-node"
 
 agent:
   tolerations:
   - key: ceph-node
     operator: Exists
     effect: NoSchedule
-  nodeAffinity: key1=value1,value2; key2=value3
+  nodeAffinity: "role=ceph-node"
 
 discover:
   tolerations:
   - key: ceph-node
     operator: Exists
     effect: NoSchedule
-  nodeAffinity: key1=value1,value2; key2=value3
+  nodeAffinity: "role=ceph-node"
 
 admissionController:
   tolerations:
      - key: ceph-node
        operator: Exists
        effect: NoSchedule
-  nodeAffinity: key1=value1,value2; key2=value3
+  nodeAffinity: "role=ceph-node"
