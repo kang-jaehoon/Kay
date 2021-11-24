@@ -21,8 +21,7 @@ defaultSettings:
 longhornManager:
   tolerations:
   - key: "longhorn"
-    operator: "Equal"
-    value: "storage"
+    operator: "Exist"
     effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
@@ -30,8 +29,7 @@ longhornManager:
 longhornDriver:
   tolerations:
   - key: "longhorn"
-    operator: "Equal"
-    value: "storage"
+    operator: "Exist"
     effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
@@ -39,8 +37,7 @@ longhornDriver:
 longhornUI:
   tolerations:
   - key: "longhorn"
-    operator: "Equal"
-    value: "storage"
+    operator: "Exist"
     effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
