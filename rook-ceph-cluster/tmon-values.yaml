@@ -3,7 +3,7 @@ toolbox:
   enabled: true
   image: rook/ceph:v1.7.5
   tolerations:
-  - key: storage-node
+  - key: ceph
     operator: Exists
   affinity:
     nodeAffinity:
@@ -13,8 +13,9 @@ toolbox:
           - key: role
             operator: In
             values:
-            - storage-node
+            - ceph
 
+cephClusterSpec:
   placement:
    all:
      nodeAffinity:
@@ -24,4 +25,4 @@ toolbox:
              - key: role
                operator: In
              values:
-             - storage-node
+             - ceph
