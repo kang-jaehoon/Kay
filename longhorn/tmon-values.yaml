@@ -8,5 +8,8 @@ service:
 
 persistence:
   defaultClass: true
-  defaultFsType: xfs
+  defaultFsType: ext4
   defaultClassReplicaCount: 1
+
+defaultSettings:
+  defaultDataPath: /tmon/longhorn
