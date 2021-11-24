@@ -22,6 +22,8 @@ csi:
   pluginNodeAffinity: role=ceph
 
 agent:
+  toleration: NoSchedule
+  tolerationKey: ceph
   tolerations:
   - key: ceph
     operator: Exists
@@ -29,12 +31,14 @@ agent:
   nodeAffinity: role=ceph
 
 discover:
+  toleration: NoSchedule
+  tolerationKey: ceph
   tolerations:
   - key: ceph
     operator: Exists
     effect: NoSchedule
   nodeAffinity: role=ceph
-#  podLabels: role=ceph
+  podLabels: role=ceph
 
 admissionController:
   tolerations:
