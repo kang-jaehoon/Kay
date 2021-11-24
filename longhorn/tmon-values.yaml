@@ -12,3 +12,7 @@ persistence:
 
 defaultSettings:
   defaultDataPath: /tmon/longhorn
+
+longhornDriver:
+  nodeSelector:
+    role: "longhorn-node"
