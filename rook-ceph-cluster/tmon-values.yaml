@@ -1,28 +1,24 @@
-
 toolbox:
   enabled: true
   image: rook/ceph:v1.7.5
-  tolerations:
-  - key: ceph
-    operator: Exists
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: role
-            operator: In
-            values:
-            - ceph
+  tolerations: []
+  affinity: {}
 
 cephClusterSpec:
   placement:
-   all:
-     nodeAffinity:
-       requiredDuringSchedulingIgnoredDuringExecution:
-         nodeSelectorTerms:
-           - matchExpressions:
-             - key: role
-               operator: In
-             values:
-             - ceph
+    all:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In
+              values:
+              - ceph
+      podAffinity:
+      podAntiAffinity:
+      topologySpreadConstraints:
+      tolerations:
+      - key: ceph
+        operator: Exists
+
