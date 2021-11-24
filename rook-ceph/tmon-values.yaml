@@ -4,8 +4,8 @@ nodeSelector:
 
 tolerations:
   - effect: NoSchedule
-  key: ceph-node
-  operator: Exists
+    key: ceph-node
+    operator: Exists
 
 csi:
   provisionerTolerations:
