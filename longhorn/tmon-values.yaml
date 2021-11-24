@@ -8,7 +8,7 @@ service:
 
 persistence:
   defaultClass: true
-  defaultFsType: ext4
+  defaultFsType: XFS
   defaultClassReplicaCount: 1
 
 defaultSettings:
