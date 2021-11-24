@@ -38,7 +38,7 @@ discover:
     operator: Exists
     effect: NoSchedule
   nodeAffinity: role=ceph
-  podLabels: "role=ceph
+  podLabels: role=ceph
 
 admissionController:
   tolerations:
