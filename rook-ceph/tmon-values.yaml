@@ -1,37 +1,42 @@
-nodeSelector: 
+
+nodeSelector:
   role: ceph-node
+
 tolerations:
- - effect: NoSchedule
-   key: ceph-node
-   operator: Exists
+  - effect: NoSchedule
+  key: ceph-node
+  operator: Exists
 
 csi:
- provisionerTolerations:
-      - effect: NoSchedule
-        key: ceph-node
-        operator: Exists
-   provisionerNodeAffinity: "role=ceph-node"
-
- pluginTolerations:
+  provisionerTolerations:
      - key: ceph-node
        operator: Exists
        effect: NoSchedule
-   pluginNodeAffinity: "role=ceph-node"
+  provisionerNodeAffinity: key1=value1,value2; key2=value3
+
+  pluginTolerations:
+     - key: ceph-node
+       operator: Exists
+       effect: NoSchedule
+  pluginNodeAffinity: key1=value1,value2; key2=value3
 
 agent:
-## toleration: NoSchedule
-## tolerationKey: key
- tolerations:
- - effect: NoSchedule
-   key: ceph-node
-   operator: Exists
- nodeAffinity: "role=ceph-node"
+  tolerations:
+  - key: ceph-node
+    operator: Exists
+    effect: NoSchedule
+  nodeAffinity: key1=value1,value2; key2=value3
 
 discover:
-#   toleration: NoSchedule
-#   tolerationKey: key
- tolerations:
- - effect: NoSchedule
-   key: ceph-node
-   operator: Exists
- nodeAffinity: "role=ceph-node"
+  tolerations:
+  - key: ceph-node
+    operator: Exists
+    effect: NoSchedule
+  nodeAffinity: key1=value1,value2; key2=value3
+
+admissionController:
+  tolerations:
+     - key: ceph-node
+       operator: Exists
+       effect: NoSchedule
+  nodeAffinity: key1=value1,value2; key2=value3
