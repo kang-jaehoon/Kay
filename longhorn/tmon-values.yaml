@@ -15,11 +15,11 @@ defaultSettings:
 
 longhornManager:
   nodeSelector:
-    role: "longhorn-node"
+    longhorn: "storage"
 longhornDriver:
   nodeSelector:
-    role: "longhorn-node"
+    longhorn: "storage"
 longhornUI:
   nodeSelector:
-    role: "longhorn-node"
+    longhorn: "storage"
 
