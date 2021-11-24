@@ -10,9 +10,6 @@ persistence:
   defaultClass: true
   defaultClassReplicaCount: 1
 
-defaultSettings:
-  defaultDataPath: /tmon/longhorn
-
 longhornManager:
   nodeSelector:
     role: "longhorn"
@@ -25,4 +22,10 @@ longhornUI:
 
 defaultSettings:
   taintToleration: "role=longhorn:NoSchedule"
+
+defaultSettings:
+  defaultDataPath: /tmon/longhorn
+  taintToleration: role=longhorn:NoSchedule
+  systemManagedComponentsNodeSelector: "role:longhorn"
+
 
