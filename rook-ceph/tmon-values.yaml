@@ -5,17 +5,18 @@ tolerations:
    key: ceph-node
    operator: Exists
 
-provisionerTolerations:
-     - effect: NoSchedule
-       key: ceph-node
-       operator: Exists
-  provisionerNodeAffinity: "role=ceph-node"
+csi:
+ provisionerTolerations:
+      - effect: NoSchedule
+        key: ceph-node
+        operator: Exists
+   provisionerNodeAffinity: "role=ceph-node"
 
-pluginTolerations:
-    - key: ceph-node
-      operator: Exists
-      effect: NoSchedule
-  pluginNodeAffinity: "role=ceph-node"
+ pluginTolerations:
+     - key: ceph-node
+       operator: Exists
+       effect: NoSchedule
+   pluginNodeAffinity: "role=ceph-node"
 
 agent:
 ## toleration: NoSchedule
