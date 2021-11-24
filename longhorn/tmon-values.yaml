@@ -1,0 +1,12 @@
+service:
+  ui:
+    type: NodePort
+    nodePort: 30200
+  manager:
+    type: ClusterIP
+    nodePort: ""
+
+persistence:
+  defaultClass: true
+  defaultFsType: xfs
+  defaultClassReplicaCount: 1
