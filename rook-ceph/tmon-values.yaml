@@ -1,0 +1,36 @@
+nodeSelector: 
+  role: ceph-node
+tolerations:
+ - effect: NoSchedule
+   key: ceph-node
+   operator: Exists
+
+provisionerTolerations:
+     - effect: NoSchedule
+       key: ceph-node
+       operator: Exists
+  provisionerNodeAffinity: "role=ceph-node"
+
+pluginTolerations:
+    - key: ceph-node
+      operator: Exists
+      effect: NoSchedule
+  pluginNodeAffinity: "role=ceph-node"
+
+agent:
+## toleration: NoSchedule
+## tolerationKey: key
+ tolerations:
+ - effect: NoSchedule
+   key: ceph-node
+   operator: Exists
+ nodeAffinity: "role=ceph-node"
+
+discover:
+#   toleration: NoSchedule
+#   tolerationKey: key
+ tolerations:
+ - effect: NoSchedule
+   key: ceph-node
+   operator: Exists
+ nodeAffinity: "role=ceph-node"

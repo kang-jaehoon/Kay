@@ -1,0 +1,20 @@
+grafana:
+  persistence:
+    enabled: true
+  service:
+    type: "NodePort"
+    NodePort: 30862
+
+prometheus:
+  server:
+    persistentVolume:
+      enabled: true
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: ceph-block
+          resources:
+            requests:
+              storage: 5Gi
