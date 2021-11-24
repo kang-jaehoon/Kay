@@ -1,42 +1,42 @@
 
 nodeSelector:
-  ceph: storage
+  role: storage-node
 
 tolerations:
   - effect: NoSchedule
-    key: ceph
+    key: storage-node
     operator: Exists
 
 csi:
   provisionerTolerations:
-     - key: ceph
+     - key: storage-node
        operator: Exists
        effect: NoSchedule
-  provisionerNodeAffinity: "ceph=storage"
+  provisionerNodeAffinity: "role=storage-node"
 
   pluginTolerations:
-     - key: ceph
+     - key: storage-node
        operator: Exists
        effect: NoSchedule
-  pluginNodeAffinity: "ceph=storage"
+  pluginNodeAffinity: "role=storage-node"
 
 agent:
   tolerations:
-  - key: ceph
+  - key: storage-node
     operator: Exists
     effect: NoSchedule
-  nodeAffinity: "ceph=storage"
+  nodeAffinity: "role=storage-node"
 
 discover:
   tolerations:
-  - key: ceph
+  - key: storage-node
     operator: Exists
     effect: NoSchedule
-  nodeAffinity: "ceph=storage"
+  nodeAffinity: "role=storage-node"
 
 admissionController:
   tolerations:
-     - key: ceph
+     - key: storage-node
        operator: Exists
        effect: NoSchedule
-  nodeAffinity: "ceph=storage"
+  nodeAffinity: "role=storage-node"

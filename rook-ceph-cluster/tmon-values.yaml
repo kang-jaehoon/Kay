@@ -3,31 +3,25 @@ toolbox:
   enabled: true
   image: rook/ceph:v1.7.5
   tolerations:
-  - key: ceph
+  - key: storage-node
     operator: Exists
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: ceph
+          - key: role
             operator: In
             values:
-            - storage
+            - storage-node
 
   placement:
-    all:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-              - key: ceph
-                operator: In
-              values:
-              - storage
-      podAffinity:
-      podAntiAffinity:
-      topologySpreadConstraints:
-      tolerations:
-      - key: ceph
-        operator: Exists
+   all:
+     nodeAffinity:
+       requiredDuringSchedulingIgnoredDuringExecution:
+         nodeSelectorTerms:
+           - matchExpressions:
+             - key: role
+               operator: In
+             values:
+             - storage-node
