@@ -15,11 +15,14 @@ defaultSettings:
 
 longhornManager:
   nodeSelector:
-    longhorn: "storage"
+    role: "longhorn-storage"
 longhornDriver:
   nodeSelector:
-    longhorn: "storage"
+    role: "longhorn-storage"
 longhornUI:
   nodeSelector:
-    longhorn: "storage"
+    role: "longhorn-storage"
+
+defaultSettings:
+  taintToleration: "role=longhorn-storage:NoSchedule"
 
