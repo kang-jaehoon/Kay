@@ -24,30 +24,30 @@ defaultSettings:
   defaultDataPath: /tmon/longhorn
   replicaSoftAntiAffinity: false
   defaultReplicaCount: 1
-  taintToleration: longhorn=storage:NoSchedule
+#  taintToleration: longhorn=storage:NoSchedule
   systemManagedComponentsNodeSelector: "role:longhorn"
 
 longhornManager:
-  tolerations:
-  - key: "longhorn"
-    operator: "Exists"
-    effect: "NoSchedule"
+#  tolerations:
+#  - key: "longhorn"
+#    operator: "Exists"
+#    effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
 
 longhornDriver:
-  tolerations:
-  - key: "longhorn"
-    operator: "Exists"
-    effect: "NoSchedule"
+#  tolerations:
+#  - key: "longhorn"
+#    operator: "Exists"
+#    effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
 
 longhornUI:
-  tolerations:
-  - key: "longhorn"
-    operator: "Exists"
-    effect: "NoSchedule"
+#  tolerations:
+#  - key: "longhorn"
+#    operator: "Exists"
+#    effect: "NoSchedule"
   nodeSelector:
    role: "longhorn"
 
