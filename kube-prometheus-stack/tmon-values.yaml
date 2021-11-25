@@ -3,7 +3,7 @@ grafana:
     enabled: true
   service:
     type: "NodePort"
-    NodePort: 30862
+    nodePort: 30862
 
 prometheus:
   server:
