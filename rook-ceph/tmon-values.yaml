@@ -13,7 +13,7 @@ csi:
      - key: ceph
        operator: Exists
        effect: NoSchedule
-#  provisionerNodeAffinity: role=ceph
+  provisionerNodeAffinity: role=ceph
 
   pluginTolerations:
      - key: ceph
@@ -33,7 +33,7 @@ discover:
   - key: ceph
     operator: Exists
     effect: NoSchedule
-#  nodeAffinity: role=ceph
+  nodeAffinity: role=ceph
 #  podLabels: role=ceph
 
 admissionController:
