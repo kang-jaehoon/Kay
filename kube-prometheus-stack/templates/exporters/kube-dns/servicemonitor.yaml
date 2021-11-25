@@ -44,6 +44,6 @@ spec:
 {{- end }}
 {{- if .Values.kubeDns.serviceMonitor.relabelings }}
     relabelings:
-{{ tpl (toYaml .Values.kubeDns.serviceMonitor.relabelings | indent 4) . }}
+{{ toYaml .Values.kubeDns.serviceMonitor.relabelings | indent 4 }}
 {{- end }}
 {{- end }}

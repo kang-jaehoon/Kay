@@ -42,6 +42,6 @@ spec:
 {{- end }}
 {{- if .Values.kubeControllerManager.serviceMonitor.relabelings }}
     relabelings:
-{{ tpl (toYaml .Values.kubeControllerManager.serviceMonitor.relabelings | indent 4) . }}
+{{ toYaml .Values.kubeControllerManager.serviceMonitor.relabelings | indent 4 }}
 {{- end }}
 {{- end }}

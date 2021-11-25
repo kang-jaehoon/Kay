@@ -31,6 +31,6 @@ spec:
 {{- end }}
 {{- if .Values.coreDns.serviceMonitor.relabelings }}
     relabelings:
-{{ tpl (toYaml .Values.coreDns.serviceMonitor.relabelings | indent 4) . }}
+{{ toYaml .Values.coreDns.serviceMonitor.relabelings | indent 4 }}
 {{- end }}
 {{- end }}
