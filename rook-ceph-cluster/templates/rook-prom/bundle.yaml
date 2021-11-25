@@ -16673,6 +16673,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator
     app.kubernetes.io/version: v0.40.0
   name: prometheus-operator
+  namespace: rook-ceph
 ---
 apiVersion: v1
 kind: Service
@@ -16682,6 +16683,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator
     app.kubernetes.io/version: v0.40.0
   name: prometheus-operator
+  namespace: rook-ceph
 spec:
   clusterIP: None
   ports:
