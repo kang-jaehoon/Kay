@@ -8,7 +8,7 @@ service:
     nodePort: ""
 
 persistence:
-  defaultClass: true
+  defaultClass: false
   defaultFsType: ext4
   defaultClassReplicaCount: 1
   reclaimPolicy: Delete
