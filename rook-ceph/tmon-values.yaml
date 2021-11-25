@@ -15,11 +15,11 @@ csi:
        effect: NoSchedule
   provisionerNodeAffinity: role=ceph
 
-#  pluginTolerations:
-#     - key: ceph
-#       operator: Exists
-#       effect: NoSchedule
-#  pluginNodeAffinity: role=ceph
+  pluginTolerations:
+     - key: ceph
+       operator: Exists
+       effect: NoSchedule
+  pluginNodeAffinity: role=ceph
 
 agent:
   tolerations:
