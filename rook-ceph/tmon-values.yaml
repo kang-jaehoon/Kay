@@ -13,7 +13,7 @@ csi:
      - key: ceph
        operator: Exists
        effect: NoSchedule
-  provisionerNodeAffinity: role=ceph
+#  provisionerNodeAffinity: role=ceph
 
   pluginTolerations:
      - key: ceph
