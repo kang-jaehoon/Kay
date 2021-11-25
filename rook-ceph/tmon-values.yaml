@@ -9,17 +9,17 @@ tolerations:
     operator: Exists
 
 csi:
-#  provisionerTolerations:
-#     - key: ceph
-#       operator: Exists
-#       effect: NoSchedule
-#  provisionerNodeAffinity: role=ceph
+  provisionerTolerations:
+     - key: ceph
+       operator: Exists
+       effect: NoSchedule
+  provisionerNodeAffinity: role=ceph
 
-#  pluginTolerations:
-#     - key: ceph
-#       operator: Exists
-#       effect: NoSchedule
-#  pluginNodeAffinity: role=ceph
+  pluginTolerations:
+     - key: ceph
+       operator: Exists
+       effect: NoSchedule
+  pluginNodeAffinity: role=ceph
 
 agent:
   tolerations:
