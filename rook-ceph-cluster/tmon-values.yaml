@@ -20,16 +20,13 @@ cephClusterSpec:
   placement:
     all:
       nodeAffinity:
-       preferredDuringSchedulingIgnoredDuringExecution:
-       - weight: 100
-       #requiredDuringSchedulingIgnoredDuringExecution:
+       requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
             - key: role
               operator: In
               values:
               - ceph
-#          topologyKey: "kubernetes.io/hostname"
       podAffinity:
       podAntiAffinity:
       topologySpreadConstraints:
