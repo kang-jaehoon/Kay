@@ -1,7 +1,6 @@
 toolbox:
   enabled: true
   image: rook/ceph:v1.7.5
-  tolerations: []
   tolerations:
   - key: ceph
     operator: Exists
