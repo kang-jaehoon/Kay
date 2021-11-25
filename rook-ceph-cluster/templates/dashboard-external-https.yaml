@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
   - name: dashboard
-    NodePort: 32011
+    nodePort: 32011
     port: 7000
     protocol: TCP
     targetPort: 7000
