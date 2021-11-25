@@ -23,7 +23,7 @@ csi:
 defaultSettings:
   defaultDataPath: /tmon/longhorn
 #  replicaSoftAntiAffinity: false
-#  defaultReplicaCount: 1
+  defaultReplicaCount: 1
 #  taintToleration: longhorn=storage:NoSchedule
 #  systemManagedComponentsNodeSelector: "role:longhorn"
 
