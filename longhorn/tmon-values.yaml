@@ -15,15 +15,15 @@ persistence:
 
 csi:
   kubeletRootDir: ~
-  attacherReplicaCount: 3
-  provisionerReplicaCount: 3
-  resizerReplicaCount: 3
-  snapshotterReplicaCount: 3
+  attacherReplicaCount: 1
+  provisionerReplicaCount: 1
+  resizerReplicaCount: 1
+  snapshotterReplicaCount: 1
 
 defaultSettings:
   defaultDataPath: /tmon/longhorn
   replicaSoftAntiAffinity: false
-  defaultReplicaCount: 3
+  defaultReplicaCount: 1
   taintToleration: longhorn=storage:NoSchedule
   systemManagedComponentsNodeSelector: "role:longhorn"
 
