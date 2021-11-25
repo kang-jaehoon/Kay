@@ -29,7 +29,7 @@ cephClusterSpec:
               operator: In
               values:
               - ceph
-            topologyKey: "kubernetes.io/hostname"
+          topologyKey: "kubernetes.io/hostname"
       podAffinity:
       podAntiAffinity:
       topologySpreadConstraints:
