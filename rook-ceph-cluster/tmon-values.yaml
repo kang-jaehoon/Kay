@@ -34,3 +34,5 @@ cephClusterSpec:
       tolerations:
       - key: ceph
         operator: Exists
+
+cephObjectStores: []
