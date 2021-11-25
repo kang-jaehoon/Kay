@@ -26,7 +26,7 @@ agent:
   - key: ceph
     operator: Exists
     effect: NoSchedule
-  nodeAffinity: role=ceph
+#  nodeAffinity: role=ceph
 
 discover:
   tolerations:
