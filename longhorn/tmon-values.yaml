@@ -22,32 +22,32 @@ csi:
 
 defaultSettings:
   defaultDataPath: /tmon/longhorn
-  replicaSoftAntiAffinity: false
-  defaultReplicaCount: 1
+#  replicaSoftAntiAffinity: false
+#  defaultReplicaCount: 1
 #  taintToleration: longhorn=storage:NoSchedule
-  systemManagedComponentsNodeSelector: "role:longhorn"
+#  systemManagedComponentsNodeSelector: "role:longhorn"
 
-longhornManager:
+#longhornManager:
 #  tolerations:
 #  - key: "longhorn"
 #    operator: "Exists"
 #    effect: "NoSchedule"
-  nodeSelector:
-   role: "longhorn"
+#  nodeSelector:
+#   role: "longhorn"
 
-longhornDriver:
+#longhornDriver:
 #  tolerations:
 #  - key: "longhorn"
 #    operator: "Exists"
 #    effect: "NoSchedule"
-  nodeSelector:
-   role: "longhorn"
+#  nodeSelector:
+#   role: "longhorn"
 
-longhornUI:
+#longhornUI:
 #  tolerations:
 #  - key: "longhorn"
 #    operator: "Exists"
 #    effect: "NoSchedule"
-  nodeSelector:
-   role: "longhorn"
+#  nodeSelector:
+#   role: "longhorn"
 
