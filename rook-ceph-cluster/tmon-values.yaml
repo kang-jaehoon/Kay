@@ -16,7 +16,7 @@ toolbox:
 
 cephClusterSpec:
   mgr:
-    count: 2
+    count: 1
   placement:
     all:
       nodeAffinity:
