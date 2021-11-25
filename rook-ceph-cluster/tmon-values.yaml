@@ -35,4 +35,5 @@ cephClusterSpec:
       - key: ceph
         operator: Exists
 
+cephFileSystems: []
 cephObjectStores: []
