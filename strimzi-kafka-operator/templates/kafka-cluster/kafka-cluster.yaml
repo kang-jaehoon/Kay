@@ -49,10 +49,13 @@ spec:
                     - my-cluster-kafka
                 topologyKey: "kubernetes.io/hostname"
     config:
-      auto.create.topics.enable: false
+      default.replication.factor: 3
+      log.retention.minutes: 30
+      min.insync.replicas: 2
+      num.partitions: 3
       offsets.topic.replication.factor: 3
-      transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
+      transaction.state.log.replication.factor: 3
   zookeeper:
     replicas: 3
     storage:
