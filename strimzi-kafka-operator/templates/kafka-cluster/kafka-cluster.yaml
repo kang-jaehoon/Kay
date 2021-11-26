@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: tvonkaf-cluster
+  name: my-cluster
 spec:
   kafka:
     replicas: 3
