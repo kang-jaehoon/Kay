@@ -2,6 +2,9 @@ global:
   storageClass: "longhorn"
   redis:
     password: "Ekfrldndb#3"
+persistence:
+  enabled: true
+  size: 5Gi
 
 usePassword: false
 password: ""
