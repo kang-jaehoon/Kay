@@ -1,0 +1,18 @@
+global:
+  storageClass: "longhorn"
+  redis:
+    password: "Ekfrldndb#3"
+
+usePassword: false
+password: ""
+service:
+  ports:
+    redis: 6379
+  nodePorts:
+    redis: ""
+  type: NodePort
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true

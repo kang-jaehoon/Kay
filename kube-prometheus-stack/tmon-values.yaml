@@ -4,7 +4,13 @@ grafana:
   service:
     type: "NodePort"
     nodePort: 30862
-
+  plugins:
+  - natel-discrete-panel
+  - pr0ps-trackmap-panel
+  - grafana-piechart-panel
+  - vonage-status-panel
+  - grafana-worldmap-panel
+  - grafana-clock-panel
 prometheus:
   server:
     persistentVolume:
@@ -19,5 +25,5 @@ prometheus:
             requests:
               storage: 10Gi
     serviceMonitorSelectorNilUsesHelmValues: false
-#    serviceMonitorSelector: {}
-#    serviceMonitorNamespaceSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
