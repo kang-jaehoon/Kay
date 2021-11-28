@@ -6,7 +6,7 @@ persistence:
   enabled: true
   size: 1Gi
 
-usePassword: true
+usePassword: false
 
 service:
   ports:

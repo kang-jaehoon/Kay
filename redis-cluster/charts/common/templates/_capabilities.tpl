@@ -16,7 +16,7 @@ Return the target Kubernetes version
 {{- end -}}
 
 {{/*
-Return the appropriate apiVersion for poddisruptionbudget.
+Return the appropriate apiVersion for podsecuritypolicy.
 */}}
 {{- define "common.capabilities.policy.apiVersion" -}}
 {{- if semverCompare "<1.21-0" (include "common.capabilities.kubeVersion" .) -}}
