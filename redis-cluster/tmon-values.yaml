@@ -6,8 +6,8 @@ persistence:
   enabled: true
   size: 1Gi
 
-usePassword: false
-password: ""
+usePassword: true
+
 service:
   ports:
     redis: 6379
