@@ -1,0 +1,4 @@
+
+elasticsearch:
+  host: logelk1.tmonc.net
+  port: 9200
