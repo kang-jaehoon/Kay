@@ -1,0 +1,52 @@
+global:
+  storageClass: "longhorn"
+  redis:
+    password: ""
+
+auth:
+  enabled: false
+  sentinel: true
+  password: ""
+
+master:
+  resources:
+    limits: {}
+    requests: {}
+  persistence:
+    enabled: true
+    size: 1Gi
+  service:
+    type: ClusterIP
+    nodePort: ""
+    loadBalancerIP: ""
+
+replica:
+  replicaCount: 3
+  configuration: ""
+  persistence:
+    enabled: true
+    size: 1Gi
+  service:
+    type: ClusterIP
+    nodePort: ""
+    loadBalancerIP: ""
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 11
+
+sentinel:
+  enabled: false
+  service:
+    type: ClusterIP
+    port: 6379
+    sentinelPort: 26379
+    nodePorts:
+      redis: ""
+      sentinel: ""
+    loadBalancerIP: ""
+
+metrics:
+  enabled: false
+  serviceMonitor:
+    enabled: false
