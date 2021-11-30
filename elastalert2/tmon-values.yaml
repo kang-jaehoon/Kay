@@ -44,7 +44,7 @@ rules:
     \   main()"
 
 
-extraVolumes: []
+extraVolumes:
   - name: swit
     configMap:
       name: swit
