@@ -58,8 +58,6 @@ spec:
             subPath: config.yaml
           - name: rules
             mountPath: '/opt/elastalert/rules'
-          - name: swit
-            mountPath: '/opt/slastalert/swit'
 {{- if .Values.elasticsearch.certsVolumeMounts }}
 {{ toYaml .Values.elasticsearch.certsVolumeMounts | indent 10 }}
 {{- end }}

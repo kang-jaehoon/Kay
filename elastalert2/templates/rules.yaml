@@ -8,10 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  OOM_TMONInfra_swit.yaml: "name: swit_OutofMemory\n\ntype: any\n\nindex: syslog-*\n\nfilter:\n-
-    query_string:\n    query: \"message: Out AND message: of AND message: memory\"
-    # OR severity_label: Error\" \n\nrealert:\n    seconds: 0\nalert:\n    - command\ncommand:
-    [\"python\",\"/opt/elastalert/swit/swit.py\",\"Out_of_memory\",\"%(hostname)s\",\"%(timestamp)s\",\"%(program)s\",\"%(message)s\",\"%(host)s\"]"
-  memfault_TMONInfra_swit.yaml: "name: swit_MemFault\ntype: any\nindex: syslog-*\nfilter:\n-
-    query_string:\n    query: \"message: edac AND message: error\" \nrealert:\n    seconds:
-    0\nalert:\n    - command\ncommand: [\"python\", \"/opt/elastalert/swit/swit.py\",\"MemFault\",\"%(hostname)s\",\"%(timestamp)s\",\"%(program)s\",\"%(message)s\",\"%(host)s\"]"
+{{- range $key, $value := .Values.rules }}
+{{ $key | indent 2}}: |-
+{{ $value | indent 4}}
+{{- end }}
