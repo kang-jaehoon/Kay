@@ -1,239 +1,55 @@
-# number of replicas to run
-replicaCount: 1
-
-# number of helm release revisions to retain
-revisionHistoryLimit: 5
-
-# Default internal between alert checks against the elasticsearch datasource, in minutes
-runIntervalMins: 1
-
-# Default rule buffer duration, in minutes
-bufferTimeMins: 15
-
-# Amount of time to retry and deliver failed alerts (1440 minutes per day)
-alertRetryLimitMins: 2880
-
-# Default time before realerting, in minutes
-realertIntervalMins: ""
-
-# For ES 5: The name of the index which stores elastalert 2 statuses, typically elastalert_status
-# For ES 6: The prefix of the names of indices which store elastalert 2 statuses, typically elastalert
-#
-writebackIndex: elastalert
-
-image:
-  # docker image
-  repository: jertel/elastalert2
-  # docker image tag
-  tag: 2.2.3
-  pullPolicy: IfNotPresent
-  pullSecret: ""
-
-resources: {}
-
-# Annotations to be added to pods
-podAnnotations: {}
 
 elasticsearch:
-  # elasticsearch endpoint e.g. (svc.namespace||svc)
-  host: elasticsearch
-  # elasticsearch port
+  host: logelk1.tmonc.net
   port: 9200
-  # whether or not to connect to es_host using TLS
-  useSsl: "False"
-  # Username if authenticating to ES with basic auth
-  username: ""
-  # Password if authenticating to ES with basic auth
-  password: ""
-  # Specifies an existing secret to be used for the ES username/password
-  credentialsSecret: ""
-  # The key in elasticsearch.credentialsSecret that stores the ES password
-  credentialsSecretUsernameKey: ""
-  # The key in elasticsearch.credentialsSecret that stores the ES username
-  credentialsSecretPasswordKey: ""
-  # whether or not to verify TLS certificates
-  verifyCerts: "True"
-  # Enable certificate based authentication
-  # path to a PEM certificate to use as the client certificate
-  # clientCert: "/certs/client.pem"
-  # path to a private key file to use as the client key
-  # clientKey: "/certs/client-key.pem"
-  # path to a CA cert bundle to use to verify SSL connections
-  # caCerts: "/certs/ca.pem"
-  # # certs volumes, required to mount ssl certificates when elasticsearch has tls enabled
-  # certsVolumes:
-  #   - name: es-certs
-  #     secret:
-  #       defaultMode: 420
-  #       secretName: es-certs
-  # # mount certs volumes, required to mount ssl certificates when elasticsearch has tls enabled
-  # certsVolumeMounts:
-  #   - name: es-certs
-  #     mountPath: /certs
-  #     readOnly: true
 
-# Optional env variables for the pod
-optEnv: []
+extraConfigOptions:
+    rules_folder: /opt/elastalert/rules
+    scan_subdirectories: false
+    run_every:
+      seconds: 10
+    buffer_time:
+      minutes: 15
+    es_host: logelk1.tmonc.net
+    es_port: 9200
+    writeback_index: elastalert_status
+    writeback_alias: elastalert_alerts
+    alert_time_limit:
+      days: 2
 
-extraConfigOptions: {}
-  # # Options to propagate to all rules, e.g. a common slack_webhook_url or kibana_url
-  # # Please note at the time of implementing this value, it will not work for required_locals
-  # # Which MUST be set at the rule level, these are: ['alert', 'type', 'name', 'index']
-  # generate_kibana_link: true
-  # kibana_url: https://kibana.yourdomain.com
-  # slack_webhook_url: dummy
+rules:
+  OOM_TMONInfra_swit.yaml: "name: swit_OutofMemory\n\ntype: any\n\nindex: syslog-*\n\nfilter:\n-
+    query_string:\n    query: \"message: Out AND message: of AND message: memory\"
+    # OR severity_label: Error\" \n\nrealert:\n    seconds: 0\nalert:\n    - command\ncommand:
+    [\"python\",\"/opt/elastalert/swit/swit.py\",\"Out_of_memory\",\"%(hostname)s\",\"%(timestamp)s\",\"%(program)s\",\"%(message)s\",\"%(host)s\"]"
+  memfault_TMONInfra_swit.yaml: "name: swit_MemFault\ntype: any\nindex: syslog-*\nfilter:\n-
+    query_string:\n    query: \"message: edac AND message: error\" \nrealert:\n    seconds:
+    0\nalert:\n    - command\ncommand: [\"python\", \"/opt/elastalert/swit/swit.py\",\"MemFault\",\"%(hostname)s\",\"%(timestamp)s\",\"%(program)s\",\"%(message)s\",\"%(host)s\"]"
+  swit.py: "import requests\nimport json\nimport argparse\nimport urllib3\nprogram_blacklist=[\"postfix/smtp\"]\nhostname_blacklist=[\"ohbaek.inf\",\"kjh3047.inf\",\"node5.cluster.local\"]\n\ndef
+    pushHttps(type,hostname,timestamp,program,message,IP):\n    \n    body=\"{4} \\nHost
+    : {0} ( {5} )\\nTime : {1}\\nProgram : {2}\\nMessage : {3}\".format(hostname,timestamp,program,message,type,IP)\n
+    \   \n    url = 'https://hook.swit.io/chat/210707004726332e7Xt/zCaSsLIbqHHuAtzRDwiD'\n
+    \   \n    headers = {\n    'Content-Type': 'application/json'\n    }\n    \n    query
+    = json.dumps(\n        {\n            \"text\":body\n        }\n    )\n    s =
+    requests.Session() \n    response = s.post(url,headers=headers,data=query,verify=False)\n
+    \   return response.text\n\n\ndef getargs():\n    parser = argparse.ArgumentParser()\n
+    \   parser.add_argument('Type',type=str)\n    parser.add_argument('hostname',
+    type=str)\n    parser.add_argument('timestamp', type=str)\n    parser.add_argument('program',type=str)\n
+    \   parser.add_argument('message',type=str)\n    parser.add_argument('IP',type=str)\n
+    \   \n    return parser.parse_args().Type, parser.parse_args().hostname,parser.parse_args().timestamp,parser.parse_args().program,parser.parse_args().message,parser.parse_args().IP\n\ndef
+    main():\n    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)\n
+    \   type, hostname, timestamp,program,message,IP=getargs()\n    if program in
+    program_blacklist:\n        return\n    if hostname in hostname_blacklist:\n        return\n
+    \   result=pushHttps(type,hostname,timestamp,program,message,IP)\n\nif __name__=='__main__':\n
+    \   main()"
 
-# To load ElastAlert 2 config via secret, uncomment the line below
-# secretConfigName: elastalert-config-secret
-
-# Example of a secret config
-
-#apiVersion: v1
-#kind: Secret
-#metadata:
-#  name: elastalert-config-secret
-#type: Opaque
-#stringData:
-#   elastalert_config: |-
-#     rules_folder: /opt/elastalert/rules
-#     scan_subdirectories: false
-#     run_every:
-#       minutes: 1
-#     buffer_time:
-#       minutes: 15
-#     es_host: elasticsearch
-#     es_port: 9200
-#     writeback_index: elastalert
-#     use_ssl: False
-#     verify_certs: True
-#     alert_time_limit:
-#       minutes: 2880
-#     slack_webhook_url: https://hooks.slack.com/services/xxxx
-#     slack_channel_override: '#alerts'
-
-
-# To load ElastAlert's rules via secret, uncomment the line below
-#secretRulesName: elastalert-rules-secret
-
-# Additionally, you must specificy which rules to load from the secret
-#secretRulesList: [ "rule_1", "rule_2" ]
-
-# Example of secret rules
-
-#apiVersion: v1
-#kind: Secret
-#metadata:
-#  name: elastalert-rules-secret
-#  namespace: elastic-system
-#type: Opaque
-#stringData:
-#   rule_1: |-
-#     name: Rule 1
-#     type: frequency
-#     index: index1-*
-#     num_events: 3
-#     timeframe:
-#       minutes: 1
-#     alert:
-#     - "slack"
-#   rule_2: |-
-#     name: Rule 2
-#     type: frequency
-#     index: index2-*
-#     num_events: 5
-#     timeframe:
-#       minutes: 10
-#     alert:
-#     - "slack"
-
-# Command and args override for container e.g. (https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/)
-# command: ["YOUR_CUSTOM_COMMAND"]
-# args: ["YOUR", "CUSTOM", "ARGS"]
-
-# rule configurations e.g. (http://elastalert2.readthedocs.io/en/latest/)
-rules: {}
-  # deadman_slack: |-
-  #   ---
-  #   name: Deadman Switch Slack
-  #   type: frequency
-  #   index: containers-*
-  #   num_events: 3
-  #   timeframe:
-  #     minutes: 3
-  #   filter:
-  #   - term:
-  #       message: "deadmanslack"
-  #   alert:
-  #   - "slack"
-  #   slack:
-  #   slack_webhook_url: dummy
-  # deadman_pagerduty: |-
-  #   ---
-  #   name: Deadman Switch PagerDuty
-  #   type: frequency
-  #   index: containers-*
-  #   num_events: 3
-  #   timeframe:
-  #     minutes: 3
-  #   filter:
-  #   - term:
-  #       message: "deadmanpd"
-  #   alert:
-  #   - "pagerduty"
-  #   pagerduty:
-  #   pagerduty_service_key: dummy
-  #   pagerduty_client_name: ElastAlert Deadman Switch
-
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name:
-
-# Enable pod security policy
-# https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-# DEPRECATED in Kubernetes 1.21 (https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)
-podSecurityPolicy:
-  create: false
-
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-
-podSecurityContext:
-  fsGroup: 1000
-  runAsUser: 1000
-  runAsGroup: 1000
-
-# Support using node selectors and tolerations
-# nodeSelector:
-#   "node-role.kubernetes.io/infra_worker": "true"
-nodeSelector: {}
-
-# Specify node affinity or anti-affinity specifications
-affinity: {}
-
-# tolerations:
-#   - key: "node_role"
-#     operator: "Equal"
-#     value: "infra_worker"
-#     effect: "NoSchedule"
-tolerations: []
 
 extraVolumes: []
-  # - name: smtp-auth
-  #   secret:
-  #     secretName: elastalert-smtp-auth
-  #     items:
-  #       - key: smtp_auth.yaml
-  #         path: smtp_auth.yaml
-  #         mode: 0400
+  - name: swit
+    configMap:
+      name: swit
 
-extraVolumeMounts: []
-  # - name: smtp-auth
-  #   mountPath: /opt/elastalert/config-smtp/smtp_auth.yaml
-  #   subPath: smtp_auth.yaml
-  #   readOnly: true
+extraVolumeMounts:
+  - name: swit
+    mountPath: /opt/elastalert/swit
+    readOnly: true
